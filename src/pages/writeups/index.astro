@@ -1,0 +1,24 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const writeups = (await getCollection('writeups', ({ data }) => !data.draft)).sort(
+  (a, b) => b.data.date.valueOf() - a.data.date.valueOf(),
+);
+---
+
+<BaseLayout title="Writeups" description="CTF and lab writeups">
+  <h1>Writeups</h1>
+  {writeups.length === 0 ? (
+    <p class="muted">No writeups published yet.</p>
+  ) : (
+    <ul>
+      {writeups.map(({ data }) => (
+        <li>
+          <time datetime={data.date.toISOString()}>{data.date.toISOString().slice(0, 10)}</time>{' '}
+          {data.title} <span class="muted">({data.platform})</span>
+        </li>
+      ))}
+    </ul>
+  )}
+</BaseLayout>

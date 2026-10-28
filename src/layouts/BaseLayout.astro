@@ -1,0 +1,86 @@
+---
+import Nav from '../components/Nav.astro';
+
+interface Props {
+  title: string;
+  description?: string;
+}
+
+const { title, description = 'Personal site and security writeups' } = Astro.props;
+const canonical = new URL(Astro.url.pathname, Astro.site);
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={description} />
+    <meta name="referrer" content="strict-origin-when-cross-origin" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="canonical" href={canonical} />
+    <title>{title} | Nicolás Sánchez Torregrosa</title>
+  </head>
+  <body>
+    <div class="container">
+      <Nav />
+      <main>
+        <slot />
+      </main>
+      <footer>
+        <p>© {new Date().getFullYear()} Nicolás Sánchez Torregrosa</p>
+      </footer>
+    </div>
+  </body>
+</html>
+
+<style is:global>
+  :root {
+    --bg: #ffffff;
+    --fg: #0f172a;
+    --muted: #64748b;
+    --accent: #15803d;
+    --border: #e2e8f0;
+    --mono: ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace;
+    color-scheme: light dark;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #0b1120;
+      --fg: #e2e8f0;
+      --muted: #94a3b8;
+      --accent: #22c55e;
+      --border: #1e293b;
+    }
+  }
+  * {
+    box-sizing: border-box;
+  }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--fg);
+    font-family: system-ui, sans-serif;
+    line-height: 1.6;
+  }
+  .container {
+    max-width: 48rem;
+    margin: 0 auto;
+    padding: 0 1rem;
+  }
+  main {
+    padding: 2rem 0;
+  }
+  footer {
+    padding: 2rem 0;
+    border-top: 1px solid var(--border);
+    color: var(--muted);
+    font-size: 0.875rem;
+  }
+  a {
+    color: var(--accent);
+  }
+  .muted {
+    color: var(--muted);
+  }
+</style>

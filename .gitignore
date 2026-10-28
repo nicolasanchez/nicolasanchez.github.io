@@ -1,0 +1,25 @@
+# Dependencies
+node_modules/
+
+# Build output and Astro generated types
+dist/
+.astro/
+
+# Logs
+npm-debug.log*
+*.log
+
+# Secrets and keys
+.env*
+*.pem
+*.key
+
+# Lab loot (never commit)
+loot/
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/*
+!.vscode/extensions.json
+.idea/
