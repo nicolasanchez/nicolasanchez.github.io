@@ -1,11 +1,11 @@
 # nicolasanchez.github.io
 
-Personal site and security writeups. Deployed to GitHub Pages.
+Single-page personal portfolio (nicosantor.com). Deployed to GitHub Pages.
 
 ## Stack
 
-- Astro (static output, no client JS by default), TypeScript strict.
-- Writeups: content collection in `src/content/writeups/`, schema in `src/content.config.ts`.
+- Astro (static output), TypeScript strict. Small client-side scripts in components (hex columns, active nav link).
+- Content (skills, projects, contact links): `src/data/site.ts`. Logos: `public/icons/`.
 - Prettier with `prettier-plugin-astro`. No ESLint, no unit tests (no logic to test); the build is the smoke test.
 - CI: `.github/workflows/ci.yml` (Gitleaks + lint + build). Deploy: `.github/workflows/deploy.yml`.
 
@@ -25,8 +25,7 @@ Before saying something is done: `npm run lint && npm run build`.
 
 ## Content rules
 
-- Writeups default to `draft: true`. Only publish retired HTB/THM machines.
-- Redact credentials, flags, internal IPs and personal data in every writeup and screenshot.
+- Redact credentials, internal IPs and personal data in every screenshot.
 - Never commit `loot/`, `.env*`, keys or raw tool output with sensitive data.
 
 ## /repo-check checklist
@@ -36,5 +35,4 @@ Before saying something is done: `npm run lint && npm run build`.
 - [ ] `gitleaks dir . --redact --no-banner` clean.
 - [ ] `npm run lint` and `npm run build` pass locally.
 - [ ] Conventional Commits, one logical change per commit.
-- [ ] No drafts of active machines published; writeups redacted.
 - [ ] Diff reviewed with the `appsec-reviewer` subagent before opening a PR.

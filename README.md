@@ -1,25 +1,26 @@
 # nicolasanchez.github.io
 
-Personal site and security writeups.
+Personal portfolio with a terminal-inspired design. Live at <https://nicosantor.com>.
 
 [![CI](https://github.com/nicolasanchez/nicolasanchez.github.io/actions/workflows/ci.yml/badge.svg)](https://github.com/nicolasanchez/nicolasanchez.github.io/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 
 ## Features
 
-- **About**, **Projects** and **Writeups** pages.
-- Writeups authored in Markdown/MDX with a typed schema (title, date, platform, difficulty, tags).
-- `draft` flag (on by default) so writeups of active machines are never published.
-- Fully static output: zero client-side JavaScript by default.
-- Light/dark theme following the OS preference.
+- Single-page portfolio: **About**, **Skills**, **Projects** and **Contact**, with a fixed navigation bar.
+- Terminal-inspired design (`nicolás@sec:~$` prompts, JetBrains Mono, dark theme).
+- Animated hero: hex columns and a radar sweep in CSS; columns filled with JavaScript.
+- Active section highlighted in the navigation bar while scrolling (`IntersectionObserver`).
+- Responsive layout and `prefers-reduced-motion` support.
+- Self-hosted font (no third-party requests).
 - CI with secret scanning (Gitleaks), type checking, formatting checks and build.
-- Automatic deployment to GitHub Pages on every push to `main`.
+- Automatic deployment to GitHub Pages on every push to `main`, served on a custom domain via Cloudflare.
 
 ## Demo / Screenshots
 
 <!-- TODO: add a screenshot or GIF of the site -->
 
-Live site: <https://nicolasanchez.github.io>
+Live site: <https://nicosantor.com>
 
 ## Getting started
 
@@ -45,27 +46,15 @@ The dev server runs at <http://localhost:4321>.
 | `npm run lint`    | `astro check` + `prettier --check`  |
 | `npm run format`  | Format the codebase with Prettier   |
 
-### Adding a writeup
+### Editing content
 
-Create `src/content/writeups/<slug>.md`:
-
-```markdown
----
-title: 'Machine name'
-date: 2026-10-28
-platform: HTB
-difficulty: Easy
-tags: [web, privesc]
-summary: 'One-line summary.'
-draft: false
----
-```
-
-Only set `draft: false` once the machine is retired.
+Skills, projects and contact links live in `src/data/site.ts`. Logos are in `public/icons/`.
+To add a screenshot to a project, put the image in `public/` and set its `image` field.
 
 ## Tech stack
 
-- [Astro](https://astro.build) (static output, content collections)
+- [Astro](https://astro.build) (static output)
+- JavaScript for small client-side enhancements
 - TypeScript (strict)
 - Prettier + `prettier-plugin-astro`
 - GitHub Actions + GitHub Pages
@@ -73,10 +62,9 @@ Only set `draft: false` once the machine is retired.
 ## Security notes
 
 - Static site: no backend, no database, no user input processed server side.
-- No third-party client-side scripts or trackers.
+- No third-party client-side scripts, fonts or trackers.
 - Secret scanning with Gitleaks in CI and locally (`gitleaks dir . --redact --no-banner`).
 - GitHub Actions run with least-privilege `permissions`; only the deploy workflow can write to Pages.
-- Writeups redact credentials, flags, internal IPs and personal data, and only cover retired machines.
 
 ## License
 
