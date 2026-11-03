@@ -1,0 +1,100 @@
+---
+import Prompt from './Prompt.astro';
+import { skills } from '../data/site';
+---
+
+<section id="stack" class="wrap section stack">
+  <div class="section-head">
+    <Prompt cmd="ls -la ./stack" />
+    <h2>
+      <span class="hl-title">Skills</span>.
+    </h2>
+  </div>
+  <div class="grid">
+    {skills.map((group) => (
+      <div class="card group">
+        <div class="dir">
+          drwxr-xr-x <strong>{group.dir}/</strong>
+        </div>
+        <ul class="items">
+          {group.items.map((item) => (
+            <li class="skill" title={item.name}>
+              <img src={item.icon} alt={item.name} width="34" height="34" loading="lazy" />
+            </li>
+          ))}
+        </ul>
+      </div>
+    ))}
+  </div>
+</section>
+
+<style>
+  .stack {
+    padding-top: 80px;
+    border-top: 1px solid rgba(126, 226, 168, 0.08);
+  }
+  .hl-title {
+    color: var(--accent);
+  }
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 16px;
+  }
+  .group {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  .dir {
+    font-size: 15px;
+    color: #7a8780;
+  }
+  .dir strong {
+    color: var(--amber);
+  }
+  .items {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .skill {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 64px;
+    height: 64px;
+    border: 1px solid rgba(126, 226, 168, 0.25);
+    border-radius: 14px;
+    background: rgba(126, 226, 168, 0.04);
+    transition:
+      border-color 0.2s,
+      box-shadow 0.2s;
+  }
+  .skill:hover {
+    border-color: var(--accent);
+    box-shadow: 0 0 16px rgba(126, 226, 168, 0.25);
+  }
+  .skill img {
+    display: block;
+    width: 34px;
+    height: 34px;
+  }
+  @media (max-width: 760px) {
+    .stack {
+      padding-top: 48px;
+    }
+    .skill {
+      width: 56px;
+      height: 56px;
+    }
+    .skill img {
+      width: 30px;
+      height: 30px;
+    }
+  }
+</style>
