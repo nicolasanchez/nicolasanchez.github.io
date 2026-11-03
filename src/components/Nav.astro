@@ -1,6 +1,6 @@
 ---
 import Icon from './Icon.astro';
-import { contact, sections } from '../data/site';
+import { contact, emailUrl, sections } from '../data/site';
 ---
 
 <header class="nav-header">
@@ -27,7 +27,12 @@ import { contact, sections } from '../data/site';
       <a href={contact.linkedin} target="_blank" rel="me noopener noreferrer" aria-label="LinkedIn">
         <Icon name="linkedin" />
       </a>
-      <a href={`mailto:${contact.email}`} aria-label="Enviar un email">
+      <a
+        href={emailUrl}
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="Escribirme un email en Gmail"
+      >
         <Icon name="mail" />
       </a>
     </div>
