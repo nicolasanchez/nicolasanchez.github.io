@@ -40,6 +40,21 @@ import { contact, emailUrl, sections } from '../data/site';
 </header>
 
 <script>
+  // Al recargar (F5) la página siempre empieza arriba, aunque la URL tenga un #ancla.
+  if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+  if (location.hash) history.replaceState(null, '', location.pathname + location.search);
+  window.scrollTo(0, 0);
+
+  // Los enlaces internos (#seccion) hacen scroll sin añadir el ancla a la URL.
+  document.querySelectorAll<HTMLAnchorElement>('a[href^="#"]').forEach((a) => {
+    a.addEventListener('click', (event) => {
+      const target = document.getElementById(a.getAttribute('href')?.slice(1) ?? '');
+      if (!target) return;
+      event.preventDefault();
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  });
+
   // Marca en el menú la sección que está en pantalla.
   const links = new Map<string, HTMLAnchorElement>();
   document.querySelectorAll<HTMLAnchorElement>('.navlink[data-section]').forEach((a) => {
