@@ -99,7 +99,7 @@ export const projects: Project[] = [
     description:
       'Esta misma web: portfolio estático con Astro, dominio propio gestionado en Cloudflare y despliegue automático.',
     tags: ['Astro', 'JavaScript', 'Cloudflare', 'GitHub Pages'],
-    image: '/portfolio.png',
+    image: '/screenshot_proyect_1.png',
     url: 'https://nicosantor.com',
   },
   {
