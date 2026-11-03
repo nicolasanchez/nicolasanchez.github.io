@@ -81,6 +81,17 @@ import { contact, emailUrl, sections } from '../data/site';
     const section = document.getElementById(id);
     if (section) observer.observe(section);
   });
+
+  // Al llegar al final de la página, la última sección (contacto) queda marcada.
+  const lastId = [...links.keys()].at(-1) ?? '';
+  window.addEventListener(
+    'scroll',
+    () => {
+      const atBottom = window.innerHeight + window.scrollY >= document.body.scrollHeight - 4;
+      if (atBottom) setActive(lastId);
+    },
+    { passive: true },
+  );
 </script>
 
 <style>
