@@ -1,28 +1,16 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/Hero.astro';
+import Skills from '../components/Skills.astro';
+import Projects from '../components/Projects.astro';
+import Contact from '../components/Contact.astro';
 ---
 
-<BaseLayout title="About">
-  <h1>Nicolás Sánchez Torregrosa</h1>
-  <p>I'm looking for a junior role in offensive security or IT audit.</p>
-  <p>
-    I come from software development: I studied Multiplatform Application Development (DAM) and did
-    an internship as a full-stack web developer. That background helps me understand how the systems
-    I want to attack are built, and what keeps them secure.
-  </p>
-  <p>
-    I'm now completing a Master's in Cybersecurity Management, Ethical Hacking and Offensive
-    Security (pentesting, forensics and incident response), and preparing for the OSCP and EHE
-    certifications.
-  </p>
-  <p>This is where I publish my projects and writeups.</p>
-  <p>
-    <a href="https://github.com/nicolasanchez" rel="me">
-      GitHub
-    </a>
-    {' · '}
-    <a href="https://www.linkedin.com/in/nicol%C3%A1s-s%C3%A1nchez-torregrosa-06a819222/" rel="me">
-      LinkedIn
-    </a>
-  </p>
+<BaseLayout title="Nicolás Sánchez Torregrosa · Full Stack Developer">
+  <main>
+    <Hero />
+    <Skills />
+    <Projects />
+    <Contact />
+  </main>
 </BaseLayout>

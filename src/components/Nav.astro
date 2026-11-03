@@ -1,56 +1,160 @@
 ---
-const links = [
-  { href: '/', label: 'About' },
-  { href: '/projects/', label: 'Projects' },
-  { href: '/writeups/', label: 'Writeups' },
-];
-
-const current = Astro.url.pathname;
+import Icon from './Icon.astro';
+import { contact, sections } from '../data/site';
 ---
 
-<nav aria-label="Main">
-  <a class="brand" href="/">
-    nicolás@sec:~$
-  </a>
-  <ul>
-    {links.map(({ href, label }) => (
-      <li>
-        <a href={href} aria-current={current === href ? 'page' : undefined}>
-          {label}
-        </a>
-      </li>
-    ))}
-  </ul>
-</nav>
+<header class="nav-header">
+  <nav class="wrap nav" aria-label="Principal">
+    <a class="brand" href="#about">
+      <span class="u">nicolás</span>
+      <span class="d">@</span>
+      <span class="a">sec</span>
+      <span class="d">:~$</span>
+    </a>
+    <ul class="menu">
+      {sections.map(({ id, label }) => (
+        <li>
+          <a class="navlink" href={`#${id}`} data-section={id}>
+            {label}
+          </a>
+        </li>
+      ))}
+    </ul>
+    <div class="social">
+      <a href={contact.github} target="_blank" rel="me noopener noreferrer" aria-label="GitHub">
+        <Icon name="github" />
+      </a>
+      <a href={contact.linkedin} target="_blank" rel="me noopener noreferrer" aria-label="LinkedIn">
+        <Icon name="linkedin" />
+      </a>
+      <a href={`mailto:${contact.email}`} aria-label="Enviar un email">
+        <Icon name="mail" />
+      </a>
+    </div>
+  </nav>
+</header>
+
+<script>
+  // Marca en el menú la sección que está en pantalla.
+  const links = new Map<string, HTMLAnchorElement>();
+  document.querySelectorAll<HTMLAnchorElement>('.navlink[data-section]').forEach((a) => {
+    links.set(a.dataset.section ?? '', a);
+  });
+
+  const setActive = (id: string) => {
+    links.forEach((a, key) => {
+      if (key === id) a.setAttribute('aria-current', 'true');
+      else a.removeAttribute('aria-current');
+    });
+  };
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) setActive(entry.target.id);
+      });
+    },
+    { rootMargin: '-45% 0px -50% 0px' },
+  );
+
+  links.forEach((_, id) => {
+    const section = document.getElementById(id);
+    if (section) observer.observe(section);
+  });
+</script>
 
 <style>
-  nav {
+  .nav-header {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background: rgba(7, 9, 10, 0.82);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(126, 226, 168, 0.12);
+  }
+  .nav {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
     justify-content: space-between;
-    gap: 1rem;
-    padding: 1rem 0;
-    border-bottom: 1px solid var(--border);
-  }
-  ul {
-    display: flex;
-    gap: 1.25rem;
-    list-style: none;
-    margin: 0;
-    padding: 0;
-  }
-  a {
-    color: var(--fg);
-    text-decoration: none;
-  }
-  a:hover,
-  a[aria-current='page'] {
-    color: var(--accent);
+    gap: 12px;
+    padding-top: 14px;
+    padding-bottom: 14px;
   }
   .brand {
-    font-family: var(--mono);
     font-weight: 700;
+    font-size: 15px;
+  }
+  .u {
     color: var(--accent);
+  }
+  .a {
+    color: var(--amber);
+  }
+  .d {
+    color: var(--dim);
+  }
+  .menu {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    margin: 0;
+    padding: 4px;
+    list-style: none;
+    font-size: 13px;
+    border: 1px solid rgba(126, 226, 168, 0.18);
+    border-radius: 999px;
+  }
+  .navlink {
+    display: block;
+    color: var(--muted);
+    padding: 8px 14px;
+    border-radius: 999px;
+    transition:
+      color 0.2s,
+      background 0.2s;
+  }
+  .navlink:hover,
+  .navlink[aria-current='true'] {
+    color: var(--text);
+    background: rgba(126, 226, 168, 0.08);
+  }
+  .navlink[aria-current='true'] {
+    color: var(--accent);
+  }
+  .social {
+    display: flex;
+    gap: 6px;
+  }
+  .social a {
+    display: flex;
+    width: 44px;
+    height: 44px;
+    align-items: center;
+    justify-content: center;
+    color: var(--muted);
+  }
+  .social a:hover {
+    color: var(--accent);
+  }
+  @media (max-width: 760px) {
+    .nav {
+      padding-top: 10px;
+      padding-bottom: 10px;
+    }
+    .menu {
+      order: 3;
+      width: 100%;
+      justify-content: space-between;
+      font-size: 12px;
+    }
+    .navlink {
+      padding: 8px;
+    }
+    .social a {
+      width: 40px;
+      height: 40px;
+    }
   }
 </style>
