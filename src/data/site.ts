@@ -12,6 +12,21 @@ export const gmailCompose = (to: string): string => {
 
 export const emailUrl = gmailCompose(contact.email);
 
+/**
+ * Enlaces para móvil: abren las apps de Gmail y LinkedIn si están instaladas.
+ * Si no lo están, se usa la alternativa (app de correo por defecto o la web).
+ */
+const linkedinPath = new URL(contact.linkedin).pathname;
+
+export const mobileLinks = {
+  // iOS: esquema de la app de Gmail.
+  gmailApp: `googlegmail:///co?to=${encodeURIComponent(contact.email)}`,
+  // Android: mailto abre Gmail (app de correo por defecto); también sirve de alternativa en iOS.
+  mailto: `mailto:${contact.email}`,
+  // Android: abre la app de LinkedIn y, si no está instalada, la web.
+  linkedinAndroid: `intent://www.linkedin.com${linkedinPath}#Intent;scheme=https;package=com.linkedin.android;S.browser_fallback_url=${encodeURIComponent(contact.linkedin)};end`,
+};
+
 export const sections = [
   { id: 'about', label: './about' },
   { id: 'stack', label: './stack' },
