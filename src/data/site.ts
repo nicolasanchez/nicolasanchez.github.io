@@ -125,6 +125,6 @@ export const projects: Project[] = [
       'Comparador de precios de juegos para PC: consulta APIs de tiendas, guarda el histórico en PostgreSQL y avisa por alertas cuando un juego baja de precio. Cuentas de usuario y precios en la moneda de cada uno.',
     tags: ['Python', 'Django', 'PostgreSQL', 'HTMX', 'Docker', 'GitHub Actions', 'Render', 'Neon'],
     image: '/screenshot_proyect2.png',
-    url: 'https://github.com/nicolasanchez/pricewatch',
+    url: 'https://pricewatch.nicosantor.com/',
   },
 ];
