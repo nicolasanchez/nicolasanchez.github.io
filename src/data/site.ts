@@ -4,7 +4,7 @@ export const contact = {
   linkedin: 'https://www.linkedin.com/in/nicol%C3%A1s-s%C3%A1nchez-torregrosa-06a819222/',
 };
 
-/** Abre Gmail en una pestaña nueva con un borrador dirigido a `to`. */
+/** abre Gmail en una pestaña nueva con un borrador . */
 export const gmailCompose = (to: string): string => {
   const params = new URLSearchParams({ view: 'cm', fs: '1', to });
   return `https://mail.google.com/mail/?${params.toString()}`;
